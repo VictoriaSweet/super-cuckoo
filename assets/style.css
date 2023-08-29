@@ -1,0 +1,28 @@
+/*
+ intro page 
+**when click start
+then moves to next screen 
+
+*button, centered. Change font type.
+
+** must display timer on all pages
+** mush show highschores - have applying link in corner
+**must record data of scores / players
+**must state "right" "wrong"
+**end when all questions answered OR when timer reaches 0 
+
+*/
+
+#startButton {
+    border: 5px;
+    border: solid red;
+ }
+
+ #questionContainer {
+    display: none;
+ }
+
+.answer {
+    background-color: orange;
+    color:white;
+ }
