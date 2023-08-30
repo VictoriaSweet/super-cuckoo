@@ -15,31 +15,6 @@ let resetBtn = document.getElementById('reset');
 let second = 00;
 let count = 00;
  
-startBtn.addEventListener('click', function () {
-    timer = true;
-    stopWatch();
-});
- 
-stopBtn.addEventListener('click', function () {
-    timer = false;
-});
- 
-resetBtn.addEventListener('click', function () {
-    timer = false;
-    hour = 0;
-    minute = 0;
-    second = 0;
-    count = 0;
-    document.getElementById('hr').innerHTML = "00";
-    document.getElementById('min').innerHTML = "00";
-    document.getElementById('sec').innerHTML = "00";
-    document.getElementById('count').innerHTML = "00";
-});
- 
-function stopWatch() {
-    if (timer) {
-        count--;
- 
         if (count == 100) {
             second--;
             count = 0;
@@ -59,8 +34,6 @@ function stopWatch() {
         document.getElementById('sec').innerText = secString;
         document.getElementById('count').innerText = countString;
         setTimeout(stopWatch, 10);
-    }
-}
 
 let currentQuestionIndex = 0;
 
