@@ -7,6 +7,61 @@ const answer2 = document.querySelector ("#answer2");
 const answer3 = document.querySelector ("#answer3");
 const answer4 = document.querySelector ("#answer4");
 
+
+let startBtn = document.getElementById('start');
+let stopBtn = document.getElementById('stop');
+let resetBtn = document.getElementById('reset');
+ 
+let second = 00;
+let count = 00;
+ 
+startBtn.addEventListener('click', function () {
+    timer = true;
+    stopWatch();
+});
+ 
+stopBtn.addEventListener('click', function () {
+    timer = false;
+});
+ 
+resetBtn.addEventListener('click', function () {
+    timer = false;
+    hour = 0;
+    minute = 0;
+    second = 0;
+    count = 0;
+    document.getElementById('hr').innerHTML = "00";
+    document.getElementById('min').innerHTML = "00";
+    document.getElementById('sec').innerHTML = "00";
+    document.getElementById('count').innerHTML = "00";
+});
+ 
+function stopWatch() {
+    if (timer) {
+        count--;
+ 
+        if (count == 100) {
+            second--;
+            count = 0;
+        }
+
+        let secString = second;
+        let countString = count;
+ 
+        if (second < 10) {
+            secString = "0" + secString;
+        }
+ 
+        if (count < 10) {
+            countString = "0" + countString;
+        }
+
+        document.getElementById('sec').innerText = secString;
+        document.getElementById('count').innerText = countString;
+        setTimeout(stopWatch, 10);
+    }
+}
+
 let currentQuestionIndex = 0;
 
 const questions = [
@@ -69,12 +124,12 @@ const questions = [
         correctAnswer: "To provide an explanation of the image or figure provided to those who are utilizing screen readers for accesibility purposes.",
         wrongAnswers: [
             "A subliminal message to initiate a comeback of Alt rock ",
-            "A reference to an image or figure that would make more sense for those who don't understand the first image or figure.",
+            "A reference to an image or figure that would make more sense for those who don't understand the first image or figure.",                                                                  
             "An alternative website that would provide more information than the current website.",
-        ],
+        ],                                                                                                          
     },
     {
-        questionText: "What is the purpose of HTML in a webpage?",
+        questionText: "What is the ?",
         correctAnswer: "set up the structure of the webpage",
         wrongAnswers: [
             "flksklfjdf",
