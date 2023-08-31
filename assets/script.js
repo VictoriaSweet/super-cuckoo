@@ -7,33 +7,37 @@ const answer2 = document.querySelector ("#answer2");
 const answer3 = document.querySelector ("#answer3");
 const answer4 = document.querySelector ("#answer4");
 
+const secEl = document.querySelector('#sec');
+const countEl = document.querySelector('#count');
 
-let startBtn = document.getElementById('start');
-let stopBtn = document.getElementById('stop');
-let resetBtn = document.getElementById('reset');
- 
-let second = 00;
-let count = 00;
- 
-        if (count == 100) {
-            second--;
-            count = 0;
-        }
 
-        let secString = second;
-        let countString = count;
- 
-        if (second < 10) {
-            secString = "0" + secString;
-        }
- 
-        if (count < 10) {
-            countString = "0" + countString;
-        }
+function stopWatch() {
+    let second = 60;
+    let count = 0;
+    
+    if (count == 0) {
+        second--;
+        count = 0;
+        clearInterval(myInterval);
+    }
+    
+    let secString = second;
+    let countString = count;
+    
+    if (second < 10) {
+        secString = "0" + secString;
+    }
+    
+    if (count < 10) {
+        countString = "0" + countString;
+    }
+    
+    secEl.innerText = secString;
+    countEl.innerText = countString;
+    second--;
+}
 
-        document.getElementById('sec').innerText = secString;
-        document.getElementById('count').innerText = countString;
-        setTimeout(stopWatch, 10);
+let myInterval = setInterval(stopWatch, 1000);
 
 let currentQuestionIndex = 0;
 
