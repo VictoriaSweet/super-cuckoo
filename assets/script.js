@@ -8,36 +8,9 @@ const answer3 = document.querySelector ("#answer3");
 const answer4 = document.querySelector ("#answer4");
 
 const secEl = document.querySelector('#sec');
-const countEl = document.querySelector('#count');
 
-
-function stopWatch() {
-    let second = 60;
-    let count = 0;
-    
-    if (count == 0) {
-        second--;
-        count = 0;
-        clearInterval(myInterval);
-    }
-    
-    let secString = second;
-    let countString = count;
-    
-    if (second < 10) {
-        secString = "0" + secString;
-    }
-    
-    if (count < 10) {
-        countString = "0" + countString;
-    }
-    
-    secEl.innerText = secString;
-    countEl.innerText = countString;
-    second--;
-}
-
-let myInterval = setInterval(stopWatch, 1000);
+let second = 5;
+secEl.innerText = second;
 
 let currentQuestionIndex = 0;
 
@@ -132,7 +105,14 @@ const questions = [
             "Crafty Style Shit",
         ],
     },
+    
+
+
 ];
+
+//f (wrongAnswers) {
+   // display: answerResult;
+//}
 
 
 function setNextQuestion() {
@@ -147,6 +127,8 @@ function setNextQuestion() {
     currentQuestionIndex++;
 }
 
+let myInterval = null;
+
 function startClicked() {
     // hide welcome section
     welcome.setAttribute("style", "display: none;");
@@ -155,7 +137,24 @@ function startClicked() {
     setNextQuestion();
 
     // show question section
-    questionContainer.setAttribute("style", "display: block;");
+    questionContainer.setAttribute("style", "display: flex;");
+
+    function stopWatch() {
+        if (second == 0) {
+            clearInterval(myInterval);
+        }
+        
+        let secString = second;
+        
+        if (second < 10) {
+            secString = "0" + secString;
+        }
+        
+        secEl.innerText = secString;
+        second--;
+    }
+
+    myInterval = setInterval(stopWatch, 1000);
 }
 
 function answerClicked(event) {
@@ -168,6 +167,10 @@ function answerClicked(event) {
     // Show Wrong! and don't setNextQuestion
 
     setNextQuestion();
+
+
+  //  if (myInterval 0) # go to highscore page
+    clearInterval(myInterval);
 }
 
 startButton.addEventListener("click", startClicked);
