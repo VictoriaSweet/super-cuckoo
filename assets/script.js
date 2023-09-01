@@ -1,13 +1,10 @@
-const welcome = document.querySelector("#welcome");
+const welcomeSections = document.querySelectorAll(".welcome");
 const startButton = document.querySelector("#startButton");
 const questionContainer = document.querySelector("#questionContainer");
 const question = document.querySelector("#question");
-const answer1 = document.querySelector ("#answer1");
-const answer2 = document.querySelector ("#answer2");
-const answer3 = document.querySelector ("#answer3");
-const answer4 = document.querySelector ("#answer4");
+const answers = document.querySelector("#answers");
 
-const secEl = document.querySelector('#sec');
+const secEl = document.querySelector("#sec");
 
 let second = 5;
 secEl.innerText = second;
@@ -15,167 +12,157 @@ secEl.innerText = second;
 let currentQuestionIndex = 0;
 
 const questions = [
-    {
-        questionText: "What is CSS an acronym for?",
-        correctAnswer: "Cascading Style Sheets",
-        wrongAnswers: [
-            "Cats Steal Sushi",
-            "Corn Stealing Squirrel",
-            "Crafty Style Shit",
-        ],
-    },
-    {
-        questionText: "What is the purpose of HTML in a webpage?",
-        correctAnswer: "set up the structure of the webpage",
-        wrongAnswers: [
-            "Make the sight look pretty",
-            "Hot Tomcats Make Love",
-            "Make the site look pretty",
-        ],
-    },
-    {
-        questionText: "What is an ordered list in HTML?",
-        correctAnswer: "Numbered list",
-        wrongAnswers: [
-            "My order in the doordash app",
-            "A list item",
-            "Bullet points identifying topics",
-        ],
-    },
-    {
-        questionText: "Which of the folowing selections are NOT a primitive javascript data type?",
-        correctAnswer: "Letters",
-        wrongAnswers: [
-            "Boolean",
-            "Strings",
-            "Undefined",
-        ],
-    },
-    {
-        questionText: "What does the term 'DRY' represent in coding?",
-        correctAnswer: "Don't Repeat Yourself",
-        wrongAnswers: [
-            "Do Repeat Yourself",
-            "Dogs Really Yelp",
-            "Don't Regret Yodeling",
-        ],
-    },
-    {
-        questionText: "What is the purpose of .concat() in javascript?",
-        correctAnswer: "To combine two or more strings or arrays",
-        wrongAnswers: [
-            "Awareness of convicted cats who are guilty of scratching the couch.",
-            "Combining two or more webpages together.",
-            "It is latin for 'with cats' adds a meow alert to every onclick event.",
-        ],
-    },
-    {
-        questionText: "What is the purpose of Alt text within an image?",
-        correctAnswer: "To provide an explanation of the image or figure provided to those who are utilizing screen readers for accesibility purposes.",
-        wrongAnswers: [
-            "A subliminal message to initiate a comeback of Alt rock ",
-            "A reference to an image or figure that would make more sense for those who don't understand the first image or figure.",                                                                  
-            "An alternative website that would provide more information than the current website.",
-        ],                                                                                                          
-    },
-    {
-        questionText: "What is the ?",
-        correctAnswer: "set up the structure of the webpage",
-        wrongAnswers: [
-            "flksklfjdf",
-            "Corn Stealing Squirrel",
-            "Crafty Style Shit",
-        ],
-    },
-    {
-        questionText: "What is the purpose of HTML in a webpage?",
-        correctAnswer: "set up the structure of the webpage",
-        wrongAnswers: [
-            "flksklfjdf",
-            "Corn Stealing Squirrel",
-            "Crafty Style Shit",
-        ],
-    },
-    {
-        questionText: "What is the purpose of HTML in a webpage?",
-        correctAnswer: "set up the structure of the webpage",
-        wrongAnswers: [
-            "flksklfjdf",
-            "Corn Stealing Squirrel",
-            "Crafty Style Shit",
-        ],
-    },
-    
+  {
+    questionText: "What is CSS an acronym for?",
+    answers: [
+      "Cats Steal Sushi",
+      "Corn Stealing Squirrel",
+      "Cascading Style Sheets",
+      "Crafty Style Shit",
+    ],
+    correctIndex: 2,
+  },
 
-
+  {
+    questionText: "What is the purpose of HTML in a webpage?",
+    answers: [
+      "Make the sight look pretty",
+      "set up the structure of the webpage",
+      "Hot Tomcats Make Love",
+      "Make the site look pretty",
+    ],
+    correctIndex: 1,
+  },
+  {
+    questionText: "What is an ordered list in HTML?",
+    answers: [
+      "My order in the doordash app",
+      "A list item",
+      "Bullet points identifying topics",
+      "Numbered list",
+    ],
+    correctIndex: 1,
+  },
+  {
+    questionText:
+      "Which of the folowing selections are NOT a primitive javascript data type?",
+    answers: ["Boolean", "Strings", "Letters", "Undefined"],
+    correctIndex: 2,
+  },
+  {
+    questionText: "What does the term 'DRY' represent in coding?",
+    answers: [
+      "Do Repeat Yourself",
+      "Don't Repeat Yourself",
+      "Dogs Really Yelp",
+      "Don't Regret Yodeling",
+    ],
+    correctIndex: 1,
+  },
+  {
+    questionText: "What is the purpose of .concat() in javascript?",
+    answers: [
+      "Awareness of convicted cats who are guilty of scratching the couch.",
+      "Combining two or more webpages together.",
+      "It is latin for 'with cats' adds a meow alert to every onclick event.",
+      "To combine two or more strings or arrays",
+    ],
+    correctIndex: 3,
+  },
+  {
+    questionText: "What is the purpose of Alt text within an image?",
+    answers: [
+      "A subliminal message to initiate a comeback of Alt rock ",
+      "A reference to an image or figure that would make more sense for those who don't understand the first image or figure.",
+      "To provide an explanation of the image or figure provided to those who are utilizing screen readers for accesibility purposes.",
+      "An alternative website that would provide more information than the current website.",
+    ],
+    correctIndex: 2,
+  },
+  {
+    questionText: "question8",
+    answers: ["answer", "answer", "answer", "answer"],
+    correctIndex: 0,
+  },
+  {
+    questionText: "question ?",
+    answers: ["sanswer", "answer", "answer", "answer"],
+    correctIndex: 0,
+  },
+  {
+    questionText: "question 10?",
+    answers: ["answer", "answer", "answer", "answer"],
+    correctIndex: 0,
+  },
 ];
 
-//f (wrongAnswers) {
-   // display: answerResult;
-//}
-
-
-function setNextQuestion() {
-    const questionObject = questions[currentQuestionIndex];
-
-    question.innerText = questionObject.questionText;
-    answer1.innerText = questionObject.correctAnswer;
-    answer2.innerText = questionObject.wrongAnswers[0];
-    answer3.innerText = questionObject.wrongAnswers[1];
-    answer4.innerText = questionObject.wrongAnswers[2];
-
-    currentQuestionIndex++;
+for (let i = 0; i < questions.length; i++) {
+  let questionObject = questions[i];
+  for (let j = 0; j < questionObject.answers.length; j++) {
+    question.innerText=questionObject.questionText;
+    render(questionObject.answers[j], j == questionObject.correctIndex);
+  }
 }
+function render(answer, correctAnswer) {
+  let onclick = null;
+  if (correctAnswer) {
+    onclick = setNextQuestion;
+  } else {
+    onclick = showWrong; //show wrong and try again()
+  }
 
+  let btn = document.createElement("button");
+  btn.innerText = answer;
+  btn.addEventListener("click", onclick);
+  answers.appendChild(btn);
+}
+function setNextQuestion() {}
+function showWrong() {}
 let myInterval = null;
 
 function startClicked() {
-    // hide welcome section
-    welcome.setAttribute("style", "display: none;");
+  for (let i = 0; i < welcomeSections.length; i++) {
+    // hide welcomeSections
+    welcomeSections[i].setAttribute("style", "display: none;");
+  }
 
-    currentQuestionIndex = 0;
-    setNextQuestion();
+  currentQuestionIndex = 0;
+  setNextQuestion();
 
-    // show question section
-    questionContainer.setAttribute("style", "display: flex;");
+  // show question section
+  questionContainer.setAttribute("style", "display: flex;");
 
-    function stopWatch() {
-        if (second == 0) {
-            clearInterval(myInterval);
-        }
-        
-        let secString = second;
-        
-        if (second < 10) {
-            secString = "0" + secString;
-        }
-        
-        secEl.innerText = secString;
-        second--;
+  function stopWatch() {
+    if (second == 0) {
+      clearInterval(myInterval);
     }
 
-    myInterval = setInterval(stopWatch, 1000);
+    let secString = second;
+
+    if (second < 10) {
+      secString = "0" + secString;
+    }
+
+    secEl.innerText = secString;
+    second--;
+  }
+
+  myInterval = setInterval(stopWatch, 1000);
 }
 
 function answerClicked(event) {
-    // First lookup how to get the value of the clicked element from an onClickEvent
+  // First lookup how to get the value of the clicked element from an onClickEvent
 
-    // TODO: Did they select the correct answer?
-    // if yes
-    // Show Correct!
-    // else
-    // Show Wrong! and don't setNextQuestion
+  // TODO: Did they select the correct answer?
+  // if yes
+  // Show Correct!
+  // else
+  // Show Wrong! and don't setNextQuestion
 
-    setNextQuestion();
-
+  setNextQuestion();
 
   //  if (myInterval 0) # go to highscore page
-    clearInterval(myInterval);
+  clearInterval(myInterval);
 }
 
 startButton.addEventListener("click", startClicked);
-
-answer1.addEventListener ("click", answerClicked);
-answer2.addEventListener ("click", answerClicked);
-answer3.addEventListener ("click", answerClicked);
-answer4.addEventListener ("click", answerClicked);
