@@ -5,7 +5,12 @@ const question = document.querySelector("#question");
 const answers = document.querySelector("#answers");
 const wrong = document.querySelector("#wrong");
 const secEl = document.querySelector("#sec");
+const players = document.querySelector(".players");
+const score =
+
+  //if correctAnswer on question 10, go to highscore
 let second = 5;
+const highscore = document.querySelector("#highscore");
 secEl.innerText = second;
 
 let currentQuestionIndex = 0;
@@ -98,11 +103,11 @@ const questions = [
 function renderQuestion(i) {
   let questionObject = questions[i];
   question.innerText = questionObject.questionText;
-  answers.innerHTML=""
+  answers.innerHTML = "";
   for (let j = 0; j < questionObject.answers.length; j++) {
     renderAnswer(questionObject.answers[j], j == questionObject.correctIndex);
   }
-  wrong.style.visibility= "hidden";
+  wrong.style.visibility = "hidden";
 }
 
 function renderAnswer(answer, correctAnswer) {
@@ -110,26 +115,36 @@ function renderAnswer(answer, correctAnswer) {
   if (correctAnswer) {
     onclick = setNextQuestion;
   } else {
-    onclick = showWrong; //show wrong and try again()
-  }
+    onclick = showWrong;
+    }
+    //if correctAnswer on question 10, go to highscore
+  
 
   let btn = document.createElement("button");
   btn.innerText = answer;
   btn.addEventListener("click", onclick);
   answers.appendChild(btn);
+ 
 }
-function setNextQuestion() {  
+function setNextQuestion() {
   currentQuestionIndex++;
   renderQuestion(currentQuestionIndex);
-}
+  }
+  if (currentQuestionIndex >= question.length) {
+    highscore.style.visibility = "visible";
+    quiz.style.visibility = "hidden";
+  }
+  //check if current question index is greater than the number of questions, if is then redirect to highscore
+
 function showWrong() {
-wrong.style.visibility= "visible"
+  wrong.style.visibility = "visible";
+  highscore.style.visibility = "hidden";
+  second--;
 }
 let myInterval = null;
 
 function startClicked() {
   for (let i = 0; i < welcomeSections.length; i++) {
-    // hide welcomeSections
     welcomeSections[i].setAttribute("style", "display: none;");
   }
 
@@ -140,8 +155,11 @@ function startClicked() {
   questionContainer.setAttribute("style", "display: flex;");
 
   function stopWatch() {
-    if (second == 0) {
+    if (second <= 0) {
       clearInterval(myInterval);
+      second = 0;
+      quiz.style.visibility = "hidden";
+      highscore.style.visibility = "visible";
     }
 
     let secString = second;
@@ -157,19 +175,12 @@ function startClicked() {
   myInterval = setInterval(stopWatch, 1000);
 }
 
+//highscore = quizResult;
+//quiz result = score left on timer when switched to highscore section
 function answerClicked(event) {
-  // First lookup how to get the value of the clicked element from an onClickEvent
-
-  // TODO: Did they select the correct answer?
-  // if yes
-  // Show Correct!
-  // else
-  // Show Wrong! and don't setNextQuestion
-
   setNextQuestion();
-
-  //  if (myInterval 0) # go to highscore page
   clearInterval(myInterval);
 }
 
 startButton.addEventListener("click", startClicked);
+highscore.style.visibility = "hidden";

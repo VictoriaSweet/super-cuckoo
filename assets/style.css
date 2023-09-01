@@ -1,16 +1,7 @@
 /*
- intro page 
-**when click start
-then moves to next screen 
-
-*button, centered. Change font type.
-
-** must display timer on all pages
 ** mush show highschores - have applying link in corner
 **must record data of scores / players
-**must state "right" "wrong"
 **end when all questions answered OR when timer reaches 0 
-
 */
 
 #startButton.mainButton {
@@ -54,24 +45,13 @@ body {
 #wrong {
    visibility: hidden;
   display: flex;
-  border: solid black;
+  background-image: url(../assets/flamesofhell.jpg);
   height: auto;
   width: auto;
   font-size: 50px;
-  background-color: black;
   color: azure;
   justify-content: center;
 }
-
-/*#correct {
-  visibility: hidden;
-  border: solid green;
-  height: auto;
-  width: auto;
-  font-size: 90px;
-  background-color: yellow;
-  justify-content: center;
-}*/
 
 #time {
   display: flex;
@@ -82,4 +62,13 @@ body {
 .press {
   display: flex;
   justify-content: center;
+}
+
+#highscore { 
+  display: flex;
+  border: solid black;
+  height:300px;
+  width: 250px;
+  /*figure out how to have a link for highscores on the homepage
+  figure out how to do user input for name in highscore*/
 }
