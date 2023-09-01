@@ -52,6 +52,7 @@ body {
 }
 
 #wrong {
+   visibility: hidden;
   display: flex;
   border: solid black;
   height: auto;

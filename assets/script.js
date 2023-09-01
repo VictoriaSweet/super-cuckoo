@@ -3,9 +3,8 @@ const startButton = document.querySelector("#startButton");
 const questionContainer = document.querySelector("#questionContainer");
 const question = document.querySelector("#question");
 const answers = document.querySelector("#answers");
-
+const wrong = document.querySelector("#wrong");
 const secEl = document.querySelector("#sec");
-
 let second = 5;
 secEl.innerText = second;
 
@@ -96,14 +95,17 @@ const questions = [
   },
 ];
 
-for (let i = 0; i < questions.length; i++) {
+function renderQuestion(i) {
   let questionObject = questions[i];
+  question.innerText = questionObject.questionText;
+  answers.innerHTML=""
   for (let j = 0; j < questionObject.answers.length; j++) {
-    question.innerText=questionObject.questionText;
-    render(questionObject.answers[j], j == questionObject.correctIndex);
+    renderAnswer(questionObject.answers[j], j == questionObject.correctIndex);
   }
+  wrong.style.visibility= "hidden";
 }
-function render(answer, correctAnswer) {
+
+function renderAnswer(answer, correctAnswer) {
   let onclick = null;
   if (correctAnswer) {
     onclick = setNextQuestion;
@@ -116,8 +118,13 @@ function render(answer, correctAnswer) {
   btn.addEventListener("click", onclick);
   answers.appendChild(btn);
 }
-function setNextQuestion() {}
-function showWrong() {}
+function setNextQuestion() {  
+  currentQuestionIndex++;
+  renderQuestion(currentQuestionIndex);
+}
+function showWrong() {
+wrong.style.visibility= "visible"
+}
 let myInterval = null;
 
 function startClicked() {
@@ -127,7 +134,7 @@ function startClicked() {
   }
 
   currentQuestionIndex = 0;
-  setNextQuestion();
+  renderQuestion(currentQuestionIndex);
 
   // show question section
   questionContainer.setAttribute("style", "display: flex;");
