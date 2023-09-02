@@ -10,9 +10,6 @@ const wrong = document.querySelector("#wrong");
 const answers = document.querySelector("#answers");
 //** scores ** */
 const highscore = document.querySelector("#highscore");
-//const scores = document.querySelector("#scores");
-//const playerName = document.querySelector(".playerName");
-//const playerScore = document.querySelector("#playerScore")
 let second = 45;
 let currentQuestionIndex = 0;
 let myInterval = null;
@@ -134,9 +131,7 @@ function setNextQuestion() {
   // if is then redirect to highscore
   //if correctAnswer on question 10, go to highscore
   if (currentQuestionIndex == questions.length) {
-    quiz.style.visibility = "hidden";
-
-    renderHighscores();
+    quizEnd();
     return;
   }
 
@@ -148,7 +143,7 @@ function showWrong() {
   highscore.style.visibility = "hidden";
   second--;
 }
-//** ide welcome **
+//** hide welcome **
 function startClicked() {
   for (let i = 0; i < welcomeSections.length; i++) {
     welcomeSections[i].style.display = "none";
@@ -166,10 +161,9 @@ function startClicked() {
   //** timer **
   function stopWatch() {
     if (second <= 0) {
-      clearInterval(myInterval);
       second = 0;
-      quiz.style.visibility = "hidden";
-      renderHighscores();
+
+      quizEnd();
     }
 
     let secString = second;
@@ -207,33 +201,40 @@ function renderHighscores() {
     console.log(localStorageHighscores);
     const highscores = JSON.parse(localStorageHighscores);
     console.log(highscores);
+    //use btn.innerText = answer;
+    //answers.appendChild(btn);
+    // within for loop to display highscores
+    for (let i = 0; i < highscores.length; i++) {
+      let btn = document.createElement("div");
+      btn.innerText = highscores[i].name + " " + highscores[i].score;
+      scores.appendChild(btn);
+      console.log(highscores[i]);
+      //highscores[i].display = ("playerNames", "highscore");
+    }
+//create an input for user to enter their name 
+  // load and store highscores in local storage
+  //be able to refer to highscores in local storage
+  //prompt if there is no information entered
   }
 
-  // do a for loop over highscores (loop over array) 
-  //display player name and highscores
-  // probably want to sort them by score before render
-  //  let btn = document.createElement("button");
-  //btn.innerText = answer;
-  //btn.addEventListener("click", onclick);
-  //answers.appendChild(btn);
-}
+  wrong.style.visibility = "hidden";
 
-    wrong.style.visibility = "hidden";
-  }
   // loop through highscores and render rows per score
 
   highscore.style.visibility = "visible";
 }
-startButton.addEventListener("click", startClicked);
 
-//const key = "kittenKey";
-//const localStorageKitten = localStorage.getItem(key);
-//if (localStorageKitten == null) {
-//console.log(`No key ${key} found in localStorage`);
-//localStorage.setItem(key, kittenJSON);
-//} else {
-//console.log(`Found ${key} in localStorage`);
-//console.log(localStorageKitten);
-//const kittenObj = JSON.parse(localStorageKitten);
-//console.log(kittenObj[1].color);
-//}
+function quizEnd() {
+  clearInterval(myInterval);
+  quiz.style.visibility = "hidden";
+  renderHighscores();
+
+  if  (quizEnd ){
+    prompt("New High Score!","Please input name");
+    return renderHighscores;
+  }
+}
+// set item - assign to local storage
+// get item -- call from local storage
+
+startButton.addEventListener("click", startClicked);
