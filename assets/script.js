@@ -10,10 +10,13 @@ const wrong = document.querySelector("#wrong");
 const answers = document.querySelector("#answers");
 //** scores ** */
 const highscore = document.querySelector("#highscore");
+const scores = document.querySelector("#scores");
+
 let second = 45;
 let currentQuestionIndex = 0;
 let myInterval = null;
 
+//**questions of the quiz
 const questions = [
   {
     questionText: "What is CSS an acronym for?",
@@ -99,6 +102,7 @@ const questions = [
   // },
 ];
 
+//** */ function to render questions
 function renderQuestion(i) {
   let questionObject = questions[i];
   const qNum = i + 1;
@@ -107,6 +111,7 @@ function renderQuestion(i) {
   for (let j = 0; j < questionObject.answers.length; j++) {
     renderAnswer(questionObject.answers[j], j == questionObject.correctIndex);
   }
+  //** */ hide visibility of wrong
   wrong.style.visibility = "hidden";
 }
 
@@ -123,13 +128,15 @@ function renderAnswer(answer, correctAnswer) {
   btn.addEventListener("click", onclick);
   answers.appendChild(btn);
 }
-
+//** */ set the next question
 function setNextQuestion() {
   currentQuestionIndex++;
 
   // check if current question index is greater than the number of questions
   // if is then redirect to highscore
   //if correctAnswer on question 10, go to highscore
+
+  // if the quiz in on the last page, end quiz (prompt for name, show highscore)
   if (currentQuestionIndex == questions.length) {
     quizEnd();
     return;
@@ -179,48 +186,45 @@ function startClicked() {
   myInterval = setInterval(stopWatch, 1000);
 }
 
-//quiz result = score left on timer when switched to highscore section
+//**show highscores
 function renderHighscores() {
-  // TODO: get high scores from local storage
-  const highscores = [
-    { name: "Victoria", score: 15 },
-    { name: "Blake", score: 999 },
-    { name: "Blake", score: 1 },
-    { name: "Blake", score: 2 },
-    { name: "Blake", score: 3 },
-  ];
-  const highscoresJSON = JSON.stringify(highscores);
+  //**creating key as highscoresKey
   const key = "highscoresKey";
-  const localStorageHighscores = localStorage.getItem(key);
-  if (localStorageHighscores == null) {
-    console.log(`no key ${key} found in localStorage`);
 
-    localStorage.setItem(key, highscoresJSON);
-  } else {
+  // grabbing key defined as highscoreskey from local storage
+  const localStorageHighscores = localStorage.getItem(key);
+
+  // setup new highscore
+  let name = prompt("New High Score!", "Please input name");
+  let score = second++;
+  let newHighscore = { name: name, score: score };
+
+  let highscores = [];
+
+  // we have something in the storage
+  if (localStorageHighscores != null) {
+    // **if key is found in local storage, show found key in console
     console.log(`key ${key} found in localStorage`);
-    console.log(localStorageHighscores);
-    const highscores = JSON.parse(localStorageHighscores);
-    console.log(highscores);
-    //use btn.innerText = answer;
-    //answers.appendChild(btn);
-    // within for loop to display highscores
-    for (let i = 0; i < highscores.length; i++) {
-      let btn = document.createElement("div");
-      btn.innerText = highscores[i].name + " " + highscores[i].score;
-      scores.appendChild(btn);
-      console.log(highscores[i]);
-      //highscores[i].display = ("playerNames", "highscore");
-    }
-//create an input for user to enter their name 
-  // load and store highscores in local storage
-  //be able to refer to highscores in local storage
-  //prompt if there is no information entered
+    highscores = JSON.parse(localStorageHighscores);
+  }
+
+  //put new highscore in array before we stringify
+  highscores.push(newHighscore);
+
+  //**turn highscores (currently an object) into a string
+  const highscoresJSON = JSON.stringify(highscores);
+
+  // **setting key (variable) highscoresJSON (value) into local storage
+  localStorage.setItem(key, highscoresJSON);
+
+  // loop through highscores and render rows per score
+  for (let i = 0; i < highscores.length; i++) {
+    let btn = document.createElement("div");
+    btn.innerText = highscores[i].name + " " + highscores[i].score;
+    scores.appendChild(btn);
   }
 
   wrong.style.visibility = "hidden";
-
-  // loop through highscores and render rows per score
-
   highscore.style.visibility = "visible";
 }
 
@@ -228,13 +232,22 @@ function quizEnd() {
   clearInterval(myInterval);
   quiz.style.visibility = "hidden";
   renderHighscores();
-
-  if  (quizEnd ){
-    prompt("New High Score!","Please input name");
-    return renderHighscores;
-  }
 }
+
 // set item - assign to local storage
 // get item -- call from local storage
 
 startButton.addEventListener("click", startClicked);
+
+//  const highscoresJSON = JSON.stringify(highscores);
+//const key = "highscoresKey";
+//const localStorageHighscores = localStorage.getItem(key);
+//if (localStorageHighscores == null) {
+//console.log(`no key ${key} found in localStorage`);
+
+//localStorage.setItem(key, highscoresJSON);
+//} else {
+//console.log(`key ${key} found in localStorage`);
+//console.log(localStorageHighscores);
+//const highscores = JSON.parse(localStorageHighscores);
+//console.log(highscores);
