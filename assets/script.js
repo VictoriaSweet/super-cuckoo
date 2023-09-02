@@ -29,77 +29,63 @@ const questions = [
     correctIndex: 2,
   },
 
-  // {
-  //   questionText: "What is the purpose of HTML in a webpage?",
-  //   answers: [
-  //     "Make the sight look pretty",
-  //     "set up the structure of the webpage",
-  //     "Hot Tomcats Make Love",
-  //     "Make the site look pretty",
-  //   ],
-  //   correctIndex: 1,
-  // },
-  // {
-  //   questionText: "What is an ordered list in HTML?",
-  //   answers: [
-  //     "My order in the doordash app",
-  //     "A list item",
-  //     "Bullet points identifying topics",
-  //     "Numbered list",
-  //   ],
-  //   correctIndex: 1,
-  // },
-  // {
-  //   questionText:
-  //     "Which of the folowing selections are NOT a primitive javascript data type?",
-  //   answers: ["Boolean", "Strings", "Letters", "Undefined"],
-  //   correctIndex: 2,
-  // },
-  // {
-  //   questionText: "What does the term 'DRY' represent in coding?",
-  //   answers: [
-  //     "Do Repeat Yourself",
-  //     "Don't Repeat Yourself",
-  //     "Dogs Really Yelp",
-  //     "Don't Regret Yodeling",
-  //   ],
-  //   correctIndex: 1,
-  // },
-  // {
-  //   questionText: "What is the purpose of .concat() in javascript?",
-  //   answers: [
-  //     "Awareness of convicted cats who are guilty of scratching the couch.",
-  //     "Combining two or more webpages together.",
-  //     "It is latin for 'with cats' adds a meow alert to every onclick event.",
-  //     "To combine two or more strings or arrays",
-  //   ],
-  //   correctIndex: 3,
-  // },
-  // {
-  //   questionText: "What is the purpose of Alt text within an image?",
-  //   answers: [
-  //     "A subliminal message to initiate a comeback of Alt rock ",
-  //     "A reference to an image or figure that would make more sense for those who don't understand the first image or figure.",
-  //     "To provide an explanation of the image or figure provided to those who are utilizing screen readers for accesibility purposes.",
-  //     "An alternative website that would provide more information than the current website.",
-  //   ],
-  //   correctIndex: 2,
-  // },
-  // {
-  //   questionText: "question8",
-  //   answers: ["answer", "answer", "answer", "answer"],
-  //   correctIndex: 0,
-  // },
-  // {
-  //   questionText: "question ?",
-  //   answers: ["sanswer", "answer", "answer", "answer"],
-  //   correctIndex: 0,
-  // },
-  // {
-  //   questionText: "question 10?",
-  //   answers: ["answer", "answer", "answer", "answer"],
-  //   correctIndex: 0,
-  // },
+  {
+    questionText: "What is the purpose of HTML in a webpage?",
+    answers: [
+      "Make the sight look pretty",
+      "set up the structure of the webpage",
+      "Hot Tomcats Make Love",
+      "Make the site look pretty",
+    ],
+    correctIndex: 1,
+  },
+  {
+    questionText: "What is an ordered list in HTML?",
+    answers: [
+      "My order in the doordash app",
+      "A list item",
+      "Bullet points identifying topics",
+      "Numbered list",
+    ],
+    correctIndex: 1,
+  },
+  {
+    questionText:
+      "Which of the folowing selections are NOT a primitive javascript data type?",
+    answers: ["Boolean", "Strings", "Letters", "Undefined"],
+    correctIndex: 2,
+  },
+  {
+    questionText: "What does the term 'DRY' represent in coding?",
+    answers: [
+      "Do Repeat Yourself",
+      "Don't Repeat Yourself",
+      "Dogs Really Yelp",
+      "Don't Regret Yodeling",
+    ],
+    correctIndex: 1,
+  },
+  {
+    questionText: "What is the purpose of .concat() in javascript?",
+    answers: [
+      "Awareness of convicted cats who are guilty of scratching the couch.",
+      "Combining two or more webpages together.",
+      "It is latin for 'with cats' adds a meow alert to every onclick event.",
+      "To combine two or more strings or arrays",
+    ],
+    correctIndex: 3,
+  },
+  {
+    questionText: "What is the purpose of Alt text within an image?",
+    answers: [
+      "A subliminal message to initiate a comeback of Alt rock ",
+      "A reference to an image or figure that would make more sense for those who don't understand the first image or figure.",
+      "To provide an explanation of the image or figure provided to those who are utilizing screen readers for accesibility purposes.",
+      "An alternative website that would provide more information than the current website.",
+    ],
+    correctIndex: 2,
+  },
+  
 ];
 
 //** */ function to render questions
@@ -131,10 +117,6 @@ function renderAnswer(answer, correctAnswer) {
 //** */ set the next question
 function setNextQuestion() {
   currentQuestionIndex++;
-
-  // check if current question index is greater than the number of questions
-  // if is then redirect to highscore
-  //if correctAnswer on question 10, go to highscore
 
   // if the quiz in on the last page, end quiz (prompt for name, show highscore)
   if (currentQuestionIndex == questions.length) {
@@ -238,16 +220,3 @@ function quizEnd() {
 // get item -- call from local storage
 
 startButton.addEventListener("click", startClicked);
-
-//  const highscoresJSON = JSON.stringify(highscores);
-//const key = "highscoresKey";
-//const localStorageHighscores = localStorage.getItem(key);
-//if (localStorageHighscores == null) {
-//console.log(`no key ${key} found in localStorage`);
-
-//localStorage.setItem(key, highscoresJSON);
-//} else {
-//console.log(`key ${key} found in localStorage`);
-//console.log(localStorageHighscores);
-//const highscores = JSON.parse(localStorageHighscores);
-//console.log(highscores);

@@ -4,30 +4,50 @@
 **end when all questions answered OR when timer reaches 0 
 */
 
-#startButton.mainButton {
-  display: flex;
-  justify-content: flex-end;
-}
 #startButton {
   height: 40px;
   width: 100px;
-  background-color: black;
-  color: red;
+  background-color: #b5aeaf;
+  color: rgb(255, 255, 255);
+  border: 2px solid black;
+  border-radius: 20px;
+  font-size: 25px;
+  font-family: monospace;
 }
 
-#questionContainer {
+.welcome.container {
+  display:flex; 
+  justify-content: center;
+  align-items: center;
+  color: #ff263c;
+  font-size:25px;
+}
+
+.welcome.press {
+  font-size: 40px;
+  color:purple;
+}
+#questionContainer.container {
   display: none;
   align-items: center;
   flex-direction: column;
 }
 
 #question {
+  display:flex;
   width: 100%;
+justify-content: center;
+font-size: 30px;
+color: black;
 }
 
-.answer {
-  background-color: orange;
-  color: white;
+button {
+  background-color: #a8a8a8;
+  color: black;
+  width: auto;
+  height: auto;
+  font-size: 25px;
+  font-family:;
 }
 
 body {
@@ -39,8 +59,9 @@ body {
 .container {
   display: flex;
   width: 100%;
-  height: 100px;
+  height: 200px;
   justify-content: center;
+  align-items: center;
 }
 
 #startButton.container {
@@ -57,12 +78,14 @@ body {
   font-size: 50px;
   color: azure;
   justify-content: center;
+  align-items: center;
 }
 
 #time {
   display: flex;
   justify-content: flex-end;
-  font-size: 30px;
+  font-size: 80px;
+  font-family: "comic-sans";
 }
 
 .press {
@@ -72,10 +95,33 @@ body {
 
 #highscore {
   display: flex;
-  border: solid black;
-  height: 300px;
-  width: 250px;
+  border: dashed 50px black;
+  height: auto;
+  width: auto;
   visibility: hidden;
+  justify-content: center;
+  align-items: center;
+  color: maroon;
+  font-family: sans-serif;
+  font-size: 50px;
+  flex-direction: column;
   /*figure out how to have a link for highscores on the homepage
   figure out how to do user input for name in highscore*/
+}
+
+#quiz {
+  background-image:url(../assets/corgi.jpeg);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+#time {
+  background-image:url(../assets/corgi.jpeg);
+  display:flex;
+  justify-content: center;
+align-items: center;
+flex-direction: space-between;
 }
