@@ -1,19 +1,21 @@
+// ** begining of quiz**
 const welcomeSections = document.querySelectorAll(".welcome");
 const startButton = document.querySelector("#startButton");
+const quiz = document.querySelector("#quiz");
+// ** questions **
+const timer = document.querySelector("#sec");
 const questionContainer = document.querySelector("#questionContainer");
 const question = document.querySelector("#question");
-const answers = document.querySelector("#answers");
 const wrong = document.querySelector("#wrong");
-const secEl = document.querySelector("#sec");
-const players = document.querySelector("#players");
-const score = document.querySelector("#score");
-
-//if correctAnswer on question 10, go to highscore
-let second = 45;
+const answers = document.querySelector("#answers");
+//** scores ** */
 const highscore = document.querySelector("#highscore");
-secEl.innerText = second;
-
+//const scores = document.querySelector("#scores");
+//const playerName = document.querySelector(".playerName");
+//const playerScore = document.querySelector("#playerScore")
+let second = 45;
 let currentQuestionIndex = 0;
+let myInterval = null;
 
 const questions = [
   {
@@ -27,77 +29,77 @@ const questions = [
     correctIndex: 2,
   },
 
-  {
-    questionText: "What is the purpose of HTML in a webpage?",
-    answers: [
-      "Make the sight look pretty",
-      "set up the structure of the webpage",
-      "Hot Tomcats Make Love",
-      "Make the site look pretty",
-    ],
-    correctIndex: 1,
-  },
-  {
-    questionText: "What is an ordered list in HTML?",
-    answers: [
-      "My order in the doordash app",
-      "A list item",
-      "Bullet points identifying topics",
-      "Numbered list",
-    ],
-    correctIndex: 1,
-  },
-  {
-    questionText:
-      "Which of the folowing selections are NOT a primitive javascript data type?",
-    answers: ["Boolean", "Strings", "Letters", "Undefined"],
-    correctIndex: 2,
-  },
-  {
-    questionText: "What does the term 'DRY' represent in coding?",
-    answers: [
-      "Do Repeat Yourself",
-      "Don't Repeat Yourself",
-      "Dogs Really Yelp",
-      "Don't Regret Yodeling",
-    ],
-    correctIndex: 1,
-  },
-  {
-    questionText: "What is the purpose of .concat() in javascript?",
-    answers: [
-      "Awareness of convicted cats who are guilty of scratching the couch.",
-      "Combining two or more webpages together.",
-      "It is latin for 'with cats' adds a meow alert to every onclick event.",
-      "To combine two or more strings or arrays",
-    ],
-    correctIndex: 3,
-  },
-  {
-    questionText: "What is the purpose of Alt text within an image?",
-    answers: [
-      "A subliminal message to initiate a comeback of Alt rock ",
-      "A reference to an image or figure that would make more sense for those who don't understand the first image or figure.",
-      "To provide an explanation of the image or figure provided to those who are utilizing screen readers for accesibility purposes.",
-      "An alternative website that would provide more information than the current website.",
-    ],
-    correctIndex: 2,
-  },
-  {
-    questionText: "question8",
-    answers: ["answer", "answer", "answer", "answer"],
-    correctIndex: 0,
-  },
-  {
-    questionText: "question ?",
-    answers: ["sanswer", "answer", "answer", "answer"],
-    correctIndex: 0,
-  },
-  {
-    questionText: "question 10?",
-    answers: ["answer", "answer", "answer", "answer"],
-    correctIndex: 0,
-  },
+  // {
+  //   questionText: "What is the purpose of HTML in a webpage?",
+  //   answers: [
+  //     "Make the sight look pretty",
+  //     "set up the structure of the webpage",
+  //     "Hot Tomcats Make Love",
+  //     "Make the site look pretty",
+  //   ],
+  //   correctIndex: 1,
+  // },
+  // {
+  //   questionText: "What is an ordered list in HTML?",
+  //   answers: [
+  //     "My order in the doordash app",
+  //     "A list item",
+  //     "Bullet points identifying topics",
+  //     "Numbered list",
+  //   ],
+  //   correctIndex: 1,
+  // },
+  // {
+  //   questionText:
+  //     "Which of the folowing selections are NOT a primitive javascript data type?",
+  //   answers: ["Boolean", "Strings", "Letters", "Undefined"],
+  //   correctIndex: 2,
+  // },
+  // {
+  //   questionText: "What does the term 'DRY' represent in coding?",
+  //   answers: [
+  //     "Do Repeat Yourself",
+  //     "Don't Repeat Yourself",
+  //     "Dogs Really Yelp",
+  //     "Don't Regret Yodeling",
+  //   ],
+  //   correctIndex: 1,
+  // },
+  // {
+  //   questionText: "What is the purpose of .concat() in javascript?",
+  //   answers: [
+  //     "Awareness of convicted cats who are guilty of scratching the couch.",
+  //     "Combining two or more webpages together.",
+  //     "It is latin for 'with cats' adds a meow alert to every onclick event.",
+  //     "To combine two or more strings or arrays",
+  //   ],
+  //   correctIndex: 3,
+  // },
+  // {
+  //   questionText: "What is the purpose of Alt text within an image?",
+  //   answers: [
+  //     "A subliminal message to initiate a comeback of Alt rock ",
+  //     "A reference to an image or figure that would make more sense for those who don't understand the first image or figure.",
+  //     "To provide an explanation of the image or figure provided to those who are utilizing screen readers for accesibility purposes.",
+  //     "An alternative website that would provide more information than the current website.",
+  //   ],
+  //   correctIndex: 2,
+  // },
+  // {
+  //   questionText: "question8",
+  //   answers: ["answer", "answer", "answer", "answer"],
+  //   correctIndex: 0,
+  // },
+  // {
+  //   questionText: "question ?",
+  //   answers: ["sanswer", "answer", "answer", "answer"],
+  //   correctIndex: 0,
+  // },
+  // {
+  //   questionText: "question 10?",
+  //   answers: ["answer", "answer", "answer", "answer"],
+  //   correctIndex: 0,
+  // },
 ];
 
 function renderQuestion(i) {
@@ -118,50 +120,56 @@ function renderAnswer(answer, correctAnswer) {
   } else {
     onclick = showWrong;
   }
-  //if correctAnswer on question 10, go to highscore
 
   let btn = document.createElement("button");
   btn.innerText = answer;
   btn.addEventListener("click", onclick);
   answers.appendChild(btn);
 }
+
 function setNextQuestion() {
   currentQuestionIndex++;
 
+  // check if current question index is greater than the number of questions
+  // if is then redirect to highscore
+  //if correctAnswer on question 10, go to highscore
   if (currentQuestionIndex == questions.length) {
-    highscore.style.visibility = "visible";
     quiz.style.visibility = "hidden";
+
+    renderHighscores();
     return;
   }
+
   renderQuestion(currentQuestionIndex);
 }
-
-//check if current question index is greater than the number of questions, if is then redirect to highscore
 
 function showWrong() {
   wrong.style.visibility = "visible";
   highscore.style.visibility = "hidden";
   second--;
 }
-let myInterval = null;
-
+//** ide welcome **
 function startClicked() {
   for (let i = 0; i < welcomeSections.length; i++) {
-    welcomeSections[i].setAttribute("style", "display: none;");
+    welcomeSections[i].style.display = "none";
   }
+
+  // **start the timer**
+  timer.innerText = second;
 
   currentQuestionIndex = 0;
   renderQuestion(currentQuestionIndex);
 
-  // show question section
-  questionContainer.setAttribute("style", "display: flex;");
+  // **show question section**
+  questionContainer.style.display = "flex";
 
+  //** timer **
   function stopWatch() {
     if (second <= 0) {
       clearInterval(myInterval);
       second = 0;
       quiz.style.visibility = "hidden";
-      highscore.style.visibility = "visible";
+      renderHighscores();
     }
 
     let secString = second;
@@ -170,19 +178,62 @@ function startClicked() {
       secString = "0" + secString;
     }
 
-    secEl.innerText = secString;
+    timer.innerText = secString;
     second--;
   }
 
   myInterval = setInterval(stopWatch, 1000);
 }
 
-//highscore = quizResult;
 //quiz result = score left on timer when switched to highscore section
-function answerClicked(event) {
-  setNextQuestion();
-  clearInterval(myInterval);
+function renderHighscores() {
+  // TODO: get high scores from local storage
+  const highscores = [
+    { name: "Victoria", score: 15 },
+    { name: "Blake", score: 999 },
+    { name: "Blake", score: 1 },
+    { name: "Blake", score: 2 },
+    { name: "Blake", score: 3 },
+  ];
+  const highscoresJSON = JSON.stringify(highscores);
+  const key = "highscoresKey";
+  const localStorageHighscores = localStorage.getItem(key);
+  if (localStorageHighscores == null) {
+    console.log(`no key ${key} found in localStorage`);
+
+    localStorage.setItem(key, highscoresJSON);
+  } else {
+    console.log(`key ${key} found in localStorage`);
+    console.log(localStorageHighscores);
+    const highscores = JSON.parse(localStorageHighscores);
+    console.log(highscores);
+  }
+
+  // do a for loop over highscores (loop over array) 
+  //display player name and highscores
+  // probably want to sort them by score before render
+  //  let btn = document.createElement("button");
+  //btn.innerText = answer;
+  //btn.addEventListener("click", onclick);
+  //answers.appendChild(btn);
 }
 
+    wrong.style.visibility = "hidden";
+  }
+  // loop through highscores and render rows per score
+
+  highscore.style.visibility = "visible";
+}
 startButton.addEventListener("click", startClicked);
-highscore.style.visibility = "hidden";
+
+//const key = "kittenKey";
+//const localStorageKitten = localStorage.getItem(key);
+//if (localStorageKitten == null) {
+//console.log(`No key ${key} found in localStorage`);
+//localStorage.setItem(key, kittenJSON);
+//} else {
+//console.log(`Found ${key} in localStorage`);
+//console.log(localStorageKitten);
+//const kittenObj = JSON.parse(localStorageKitten);
+//console.log(kittenObj[1].color);
+//}

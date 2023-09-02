@@ -17,6 +17,12 @@
 
 #questionContainer {
   display: none;
+  align-items: center;
+  flex-direction: column;
+}
+
+#question {
+  width: 100%;
 }
 
 .answer {
@@ -69,6 +75,7 @@ body {
   border: solid black;
   height: 300px;
   width: 250px;
+  visibility: hidden;
   /*figure out how to have a link for highscores on the homepage
   figure out how to do user input for name in highscore*/
 }
