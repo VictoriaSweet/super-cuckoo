@@ -5,11 +5,11 @@ const question = document.querySelector("#question");
 const answers = document.querySelector("#answers");
 const wrong = document.querySelector("#wrong");
 const secEl = document.querySelector("#sec");
-const players = document.querySelector(".players");
-const score =
+const players = document.querySelector("#players");
+const score = document.querySelector("#score");
 
-  //if correctAnswer on question 10, go to highscore
-let second = 5;
+//if correctAnswer on question 10, go to highscore
+let second = 45;
 const highscore = document.querySelector("#highscore");
 secEl.innerText = second;
 
@@ -102,7 +102,8 @@ const questions = [
 
 function renderQuestion(i) {
   let questionObject = questions[i];
-  question.innerText = questionObject.questionText;
+  const qNum = i + 1;
+  question.innerText = qNum + ": " + questionObject.questionText;
   answers.innerHTML = "";
   for (let j = 0; j < questionObject.answers.length; j++) {
     renderAnswer(questionObject.answers[j], j == questionObject.correctIndex);
@@ -116,25 +117,26 @@ function renderAnswer(answer, correctAnswer) {
     onclick = setNextQuestion;
   } else {
     onclick = showWrong;
-    }
-    //if correctAnswer on question 10, go to highscore
-  
+  }
+  //if correctAnswer on question 10, go to highscore
 
   let btn = document.createElement("button");
   btn.innerText = answer;
   btn.addEventListener("click", onclick);
   answers.appendChild(btn);
- 
 }
 function setNextQuestion() {
   currentQuestionIndex++;
-  renderQuestion(currentQuestionIndex);
-  }
-  if (currentQuestionIndex >= question.length) {
+
+  if (currentQuestionIndex == questions.length) {
     highscore.style.visibility = "visible";
     quiz.style.visibility = "hidden";
+    return;
   }
-  //check if current question index is greater than the number of questions, if is then redirect to highscore
+  renderQuestion(currentQuestionIndex);
+}
+
+//check if current question index is greater than the number of questions, if is then redirect to highscore
 
 function showWrong() {
   wrong.style.visibility = "visible";

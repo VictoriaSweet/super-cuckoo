@@ -43,7 +43,7 @@ body {
 }
 
 #wrong {
-   visibility: hidden;
+  visibility: hidden;
   display: flex;
   background-image: url(../assets/flamesofhell.jpg);
   height: auto;
@@ -64,10 +64,10 @@ body {
   justify-content: center;
 }
 
-#highscore { 
+#highscore {
   display: flex;
   border: solid black;
-  height:300px;
+  height: 300px;
   width: 250px;
   /*figure out how to have a link for highscores on the homepage
   figure out how to do user input for name in highscore*/
